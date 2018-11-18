@@ -6,7 +6,10 @@ RUN stack install --resolver=lts-12 \
     hledger-1.11 \
     hledger-ui-1.11 \
     hledger-web-1.11 \
-    hledger-api-1.11
+    hledger-api-1.11 \ 
+    hledger-diff-0.2.0.14 \
+    hledger-iadd-1.3.6 \
+    hledger-interest-1.5.2
 
 RUN mkdir /journals
 
