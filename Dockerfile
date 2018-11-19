@@ -1,20 +1,19 @@
 FROM haskell:8
 
-RUN stack install --resolver=ghc-8.4.3 \
-    cassava-megaparsec-1.0.0 \
-    hledger-lib-1.11 \
-    hledger-1.11 \
-    hledger-ui-1.11 \
-    hledger-web-1.11 \
-    hledger-api-1.11 \ 
-    hledger-diff-0.2.0.14 \
-    hledger-iadd-1.3.6 \
-    hledger-interest-1.5.3
+# download and build hledger
+RUN git clone http://github.com/simonmichael/hledger hledger && cd hledger && stack install
 
+# compile add on commands
+RUN /hledger/bin/compile.sh
+
+# create target folder for journal volume
 RUN mkdir /journals
+
+COPY journals /journals
 
 VOLUME [ "/journals" ]
 
 EXPOSE 5000
 
+# run hledger web by default
 CMD [ "hledger-web", "--serve", "--host", "0.0.0.0" ]
