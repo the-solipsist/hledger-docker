@@ -1,6 +1,6 @@
 FROM haskell:8
 
-RUN "stack install --resolver=lts-12 \
+RUN stack install --resolver=lts-12 \
     cassava-megaparsec-1.0.0 \
     hledger-lib-1.11 \
     hledger-1.11 \
@@ -9,11 +9,13 @@ RUN "stack install --resolver=lts-12 \
     hledger-api-1.11 \
     hledger-diff-0.2.0.14 \
     hledger-iadd-1.3.6 \
-    hledger-interest"   
+    hledger-interest 
     
 RUN mkdir /journals
 
 VOLUME [ "/journals" ]
+
+ENTRYPOINT [ "hledger" ]
 
 EXPOSE 5000
 
